@@ -11,8 +11,10 @@ repository = "https://github.com/tantivy-search/levenshtein-automata"
 readme = "README.md"
 keywords = ["levenshtein", "automaton", "automata", "fuzzy"]
 
-[dependencies]
-fst = {version="0.3", optional=true, default-features=false}
+[dependencies.fst]
+git = "https://github.com/Kerollmops/fst.git"
+branch = "arc-byte-slice"
+optional = true
 
 [dev-dependencies]
 levenshtein = "1.0"
