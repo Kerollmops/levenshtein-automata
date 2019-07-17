@@ -82,9 +82,6 @@ impl DFA {
     }
 }
 
-#[cfg(feature = "fst_automaton")]
-use fst;
-#[cfg(feature = "fst_automaton")]
 impl fst::Automaton for DFA {
     type State = u32;
 
@@ -94,7 +91,7 @@ impl fst::Automaton for DFA {
 
     fn is_match(&self, state: &u32) -> bool {
         match self.distance(*state) {
-            Distance::Exact(d) => true,
+            Distance::Exact(_) => true,
             Distance::AtLeast(_) => false,
         }
     }
