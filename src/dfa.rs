@@ -43,9 +43,9 @@ pub const SINK_STATE: u32 = 0u32;
 /// # }
 //```
 pub struct DFA {
-    transitions: Vec<[u32; 256]>,
-    distances: Vec<Distance>,
-    initial_state: u32,
+    pub transitions: Vec<[u32; 256]>,
+    pub distances: Vec<Distance>,
+    pub initial_state: u32,
 }
 
 impl DFA {
@@ -83,8 +83,6 @@ impl DFA {
 }
 
 #[cfg(feature = "fst_automaton")]
-use fst;
-#[cfg(feature = "fst_automaton")]
 impl fst::Automaton for DFA {
     type State = u32;
 
@@ -94,7 +92,7 @@ impl fst::Automaton for DFA {
 
     fn is_match(&self, state: &u32) -> bool {
         match self.distance(*state) {
-            Distance::Exact(d) => true,
+            Distance::Exact(_) => true,
             Distance::AtLeast(_) => false,
         }
     }

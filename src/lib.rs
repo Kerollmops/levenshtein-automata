@@ -55,13 +55,14 @@ use self::index::Index;
 pub use self::levenshtein_nfa::Distance;
 use self::levenshtein_nfa::LevenshteinNFA;
 use self::parametric_dfa::ParametricDFA;
+pub use self::parametric_dfa::{Transition, RefParametricDFA};
 
 /// Builder for Levenshtein Automata.
 ///
 /// It wraps a precomputed datastructure that allows to
 /// produce small (but not minimal) DFA.
 pub struct LevenshteinAutomatonBuilder {
-    parametric_dfa: ParametricDFA,
+    pub parametric_dfa: ParametricDFA,
 }
 
 impl LevenshteinAutomatonBuilder {
@@ -113,3 +114,16 @@ impl LevenshteinAutomatonBuilder {
     }
 }
 
+pub struct RefLevenshteinAutomatonBuilder {
+    pub parametric_dfa: RefParametricDFA,
+}
+
+impl RefLevenshteinAutomatonBuilder {
+    pub fn build_dfa(&self, query: &str) -> DFA {
+        self.parametric_dfa.build_dfa(query, false)
+    }
+
+    pub fn build_prefix_dfa(&self, query: &str) -> DFA {
+        self.parametric_dfa.build_dfa(query, true)
+    }
+}
